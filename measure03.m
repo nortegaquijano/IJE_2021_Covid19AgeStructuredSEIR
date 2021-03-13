@@ -1,4 +1,13 @@
-%% MEASURE 3:
+%--------------------------------------------------------------------------
+% MEASURE 3: Public health lockdown
+% 
+% Cite as:
+% Daniel Ortega-Quijano, Noe Ortega-Quijano, Impact of age-selective vs 
+% non-selective physical-distancing measures against coronavirus disease 
+% 2019: a mathematical modelling study, International Journal of 
+% Epidemiology, 2021; dyab043
+% https://doi.org/10.1093/ije/dyab043
+%% ------------------------------------------------------------------------
 
 % Measure number:
 ii = 3;
@@ -10,6 +19,7 @@ measure.nMeasure{ii} = ii;
 measure.nPhases{ii} = jj;
 % Measure description:
 measure.Desc{ii} = 'Public health lockdown';
+
 
 %% Phase dates (there have to be jj+1 entries):
 % Note: date from phase 2 onwards indicates the last day of the previous phase
@@ -72,13 +82,29 @@ fReciprocityCheck(measure.cRest{2,ii},pop0);
 %% Contact matrices weightings (phase 3):
 
 cAll = cHome+cWork+cSchool+cOthers;
-ncAll = (1-0.7885)*sum(cAll*pop0');
+
+% See supplementary material p. 12-13 for a description of the procedure 
+% followed to fix the value of the B parameter:
+B = 0.7885;
+ncAll = (1-B)*sum(cAll*pop0');
+
+% Distribution of infected (see supplementary material p. 5-6):
 DI = [0.115553257; 0.105077132; 0.144218952; 0.150945365; 0.175958632; 0.136394355; 0.103899914; 0.067952393];
+
+% Assumption for scenario 3 follows scenario 2: 5% of the workforce 
+% remained at their workplace (see supplementary material p. 14-16):
 ncRest = ncAll-sum(0.05*cWork*pop0');
 targetContactsRest = ncRest*DI;
+% Additional 30% reduction in the number of contacts for individuales aged
+% more than 60 (see supplementary material p. 14-16):
 targetContactsRest = [1 1 1 1 1 1 0.5 0.5]'.*targetContactsRest;
 cRest = cAll-cWork;
+
+% Constrained linear least-squares algorithm for determining the fitted 
+% contact matrix at the rest of locations:
 [cRestFitted3,coeffsMatrix] = fContactsLeastSquares(cRest,pop0,targetContactsRest);
+
+% Contact matrices for phase 3:
 measure.wWork{3,ii} = 0.05;
 measure.cWork{3,ii} = measure.wWork{3,ii}.*cWork;
 measure.cRest{3,ii} = cRestFitted3;

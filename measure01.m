@@ -1,4 +1,13 @@
-%% MEASURE 1: No physical distancing
+%--------------------------------------------------------------------------
+% MEASURE 1: No physical distancing
+% 
+% Cite as:
+% Daniel Ortega-Quijano, Noe Ortega-Quijano, Impact of age-selective vs 
+% non-selective physical-distancing measures against coronavirus disease 
+% 2019: a mathematical modelling study, International Journal of 
+% Epidemiology, 2021; dyab043
+% https://doi.org/10.1093/ije/dyab043
+%% ------------------------------------------------------------------------
 
 % Measure number:
 ii = 1;
@@ -11,6 +20,7 @@ measure.nPhases{ii} = jj;
 % Measure description:
 measure.Desc{ii} = 'No physical distancing';
 
+
 %% Phase dates (there have to be jj+1 entries):
 % Note: date from phase 2 onwards indicates the last day of the previous phase
 measure.phaseDate{1,ii} = dateInitial;          % Nov 22, 2019 to Jan 14, 2020: Normal situation
@@ -19,6 +29,7 @@ measure.phaseDate{3,ii} = datetime(2020,1,23);  % Jan 24 to Jan 30, 2020: Lunar 
 measure.phaseDate{4,ii} = datetime(2020,1,30);  % Jan 31 to Feb 10, 2020: Winter school holidays (continuation). 
 measure.phaseDate{5,ii} = datetime(2020,2,10);  % Feb 11 to Apr 7, 2020: Normal situation
 measure.phaseDate{6,ii} = dateFinal;
+
 
 %% Phase 1 contacts:
 

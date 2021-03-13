@@ -4,6 +4,13 @@
 % number of COVID-19 related deaths and the number of people in the 
 % active workforce in the setting of Wuhan.
 % 
+% Cite as:
+% Daniel Ortega-Quijano, Noe Ortega-Quijano, Impact of age-selective vs 
+% non-selective physical-distancing measures against coronavirus disease 
+% 2019: a mathematical modelling study, International Journal of 
+% Epidemiology, 2021; dyab043
+% https://doi.org/10.1093/ije/dyab043
+%
 % Main script
 % 
 % Authors:

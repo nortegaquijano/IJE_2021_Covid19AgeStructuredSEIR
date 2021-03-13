@@ -1,4 +1,13 @@
-%% MEASURE 4:
+%--------------------------------------------------------------------------
+% MEASURE 4: Health-economy tradeoff lockdown
+% 
+% Cite as:
+% Daniel Ortega-Quijano, Noe Ortega-Quijano, Impact of age-selective vs 
+% non-selective physical-distancing measures against coronavirus disease 
+% 2019: a mathematical modelling study, International Journal of 
+% Epidemiology, 2021; dyab043
+% https://doi.org/10.1093/ije/dyab043
+%% ------------------------------------------------------------------------
 
 % Measure number:
 ii = 4;
@@ -10,6 +19,7 @@ measure.nMeasure{ii} = ii;
 measure.nPhases{ii} = jj;
 % Measure description:
 measure.Desc{ii} = 'Health-economy tradeoff lockdown';
+
 
 %% Phase dates (there have to be jj+1 entries):
 % Note: date from phase 2 onwards indicates the last day of the previous phase
@@ -71,13 +81,18 @@ fReciprocityCheck(measure.cRest{2,ii},pop0);
 
 %% Contact matrices weightings (phase 3):
 
+% Age-dependent increase of the workforce compared to the previous 
+% scenarios (see supplementary material, p. 16-17):
 ncWork = (1-0.95)*cWork*pop0';
 targetContactsWork = [1 8 8 5 5 2 1 1]'.*ncWork;
 
+% Constrained linear least-squares algorithm for determining the fitted 
+% contact matrix at the workplace:
 [cCorrected04,coeffsMatrix] = fContactsLeastSquares(cWork,pop0,targetContactsWork);
 
+% Contact matrices for phase 3:
 measure.cWork{3,ii} = cCorrected04;
-measure.cRest{3,ii} = cRestFitted3;
+measure.cRest{3,ii} = cRestFitted3;  % Same as in scenario 3
 measure.cAll{3,ii} = measure.cWork{3,ii}+measure.cRest{3,ii};
 
 % Verify that contact matrices satisfy the reciprocity condition (auto):
