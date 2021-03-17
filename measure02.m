@@ -98,7 +98,7 @@ cRest = cAll-cWork;
 
 % Constrained linear least-squares algorithm for determining the fitted 
 % contact matrix at the rest of locations, which is assumed to absorb the 
-% changes in the social mixing patterns during the lockdonw (see 
+% changes in the social mixing patterns during the lockdown (see 
 % supplementary material p. 9-13):
 [cRestFitted2,coeffsMatrix] = fContactsLeastSquares(cRest,pop0,targetContactsRest);
 
